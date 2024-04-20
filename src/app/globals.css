@@ -18,7 +18,7 @@
 
 @font-face {
     font-family: 'Linux Libertine';
-    src: url('../../src/fonts/LinLibertine_R.ttf') format('truetype');
+    src: url('../app/fonts/LinLibertine_R.ttf') format('truetype');
   }
 
 /* body {
