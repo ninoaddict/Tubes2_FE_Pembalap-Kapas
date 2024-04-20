@@ -13,6 +13,23 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        primary: "#BB86FC",
+        onPrimary: "#000000",
+        primaryVariant: "#3700B3",
+        secondary: "#03DAC6",
+        onSecondary: "#000000",
+        background: "#121212",
+        surface: "#121212",
+        error: "#CF6679",
+        onBackground: "#E9E9E9",
+        onSurface: "#E9E9E9",
+        onError: "#000000",
+        kuning: "#FFEE00",
+      },
+      fontFamily: {
+        "linux-libertine": "Linux Libertine",
+      },
     },
   },
   plugins: [],
