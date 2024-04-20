@@ -1,11 +1,11 @@
 version: '3.8'
 services:
   app:
-    image: Tubes2_FE_Pembalap-Kapas
+    image: wiki-race-fe
     build:
       context: ./
-      target: dev
       dockerfile: Dockerfile
+      target: dev
     volumes:
         - .:/app
         - /app/node_modules
