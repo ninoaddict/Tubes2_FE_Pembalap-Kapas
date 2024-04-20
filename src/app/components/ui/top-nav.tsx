@@ -26,14 +26,18 @@ export default function TopNav() {
   return (
     <nav
       ref={navBarRef}
-      className="md:py-2 py-4 px-6 md:px-12 relative flex items-center w-full justify-between"
+      className="md:py-2 py-4 px-6 md:px-12 lg:py-4 relative flex items-center w-full justify-between"
     >
       <Link href="/">
-        <div
-          className={`text-2xl md:text-4xl md:font-semibold text-onBackground font-bold hover:text-[#FFFFFF] font-linux-libertine`}
-          data-text="STIMA"
-        >
-          WikiRace
+        <div className="relative text-white hover:text-[#FFFFFF] -m-1 md:-mt-3">
+          <h3 className="absolute top-[21%] text-[8px] md:text-[16px] -translate-x-1/2 left-1/2">
+            PEMBALAP
+          </h3>
+          <div className="font-linux-libertine m-0 p-0">
+            <span className="text-[32px] md:text-[64px]">C</span>
+            <span className="text-[18px] md:text-[36px] ">OTTO</span>
+            <span className="text-[32px] md:text-[64px]">N</span>
+          </div>
         </div>
       </Link>
 
