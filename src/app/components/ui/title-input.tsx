@@ -1,7 +1,7 @@
 "use client";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
+import { useDebounce } from "use-debounce";
 import { fetchWikipedia } from "@/app/lib/action";
-
 export default function TitleInput({
   url,
   setUrl,
@@ -11,14 +11,27 @@ export default function TitleInput({
 }) {
   const [isFocused, setIsFocused] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
+  const [debouncedInputTerm] = useDebounce(url, 300);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setUrl(e.target.value);
-
-    if (e.target.value != "" || e.target.value != undefined)
-      fetchInputSuggestion(e.target.value);
-    else setSuggestions([]);
   }
+
+  useEffect(() => {
+    const searchHN = async () => {
+      let results = [];
+      if (debouncedInputTerm) {
+        try {
+          const data = await fetchWikipedia(debouncedInputTerm);
+          if (data != undefined) results = data;
+        } catch (error) {
+          // handle error
+        }
+      }
+      setSuggestions(results);
+    };
+    searchHN();
+  }, [debouncedInputTerm]);
 
   function handleFocus() {
     setIsFocused(true);
@@ -31,17 +44,6 @@ export default function TitleInput({
     }, 300);
   }
 
-  async function fetchInputSuggestion(term: string) {
-    try {
-      const res = await fetchWikipedia(term);
-      if (res != undefined) setSuggestions(res);
-      else setSuggestions([]);
-    } catch (error) {
-      // handle error
-      setSuggestions([]);
-    }
-  }
-
   const handleKeyPress = (event: any) => {
     if (event.key === "Enter" && suggestions.length > 0) {
       setUrl(suggestions[0]); // Select the first suggestion
@@ -52,7 +54,6 @@ export default function TitleInput({
   const handleSuggestionClick = (suggestion: string) => {
     setUrl(suggestion);
     setIsFocused(false);
-    console.log("on click suggestion");
   };
 
   return (

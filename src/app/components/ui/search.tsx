@@ -2,10 +2,13 @@
 
 import { ChangeEvent, useState } from "react";
 import TitleInput from "./title-input";
+import { ResultData } from "@/app/lib/interface";
+import { findPath, getWikiUrl } from "@/app/lib/action";
 
 export default function Search() {
-  const [base, setBase] = useState<string>("");
-  const [goal, setGoal] = useState<string>("");
+  const [base, setBase] = useState<string>("Apple");
+  const [goal, setGoal] = useState<string>("Orange");
+  const [resultData, setResultData] = useState<ResultData | null>(null);
 
   function handleExchange() {
     let currBase = base;
@@ -15,9 +18,44 @@ export default function Search() {
     setGoal(currBase);
   }
 
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    // get base url
+    var urlBase;
+    try {
+      urlBase = await getWikiUrl(base);
+    } catch (error) {
+      // TODO: pake swal
+      console.log("Tidak ada page dengan judul " + base);
+      return;
+    }
+
+    var urlGoal;
+    // get goal url
+    try {
+      urlGoal = await getWikiUrl(goal);
+    } catch (error) {
+      // TODO: pake swal
+      console.log("Tidak ada page dengan judul " + goal);
+      return;
+    }
+
+    // find path
+    try {
+      const data = await findPath(urlBase, urlGoal);
+      console.log(data);
+    } catch (error) {
+      // TODO: pake swal
+      console.log("Unexpected error occurred");
+    }
+  }
+
   return (
     <div className="mt-16">
-      <form action="">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col items-center gap-12"
+      >
         <div className="flex gap-4 justify-center items-center">
           <TitleInput url={base} setUrl={setBase} />
           <svg
@@ -29,14 +67,14 @@ export default function Search() {
           </svg>
           <TitleInput url={goal} setUrl={setGoal} />
         </div>
-        {/* <button
+        <button
           type="submit"
-          className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
+          className="relative flex items-center justify-center p-0.5 overflow-hidden font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
         >
-          <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-            Insert
+          <span className="text-2xl lg:w-36 relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+            Go!
           </span>
-        </button> */}
+        </button>
       </form>
     </div>
   );
