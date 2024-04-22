@@ -69,12 +69,12 @@ export default function TitleInput({
         className="text-[#333] py-3 px-5 box-border text-xl lg:text-3xl bg-[#ddd] text-center border-[3px] border-black"
       />
       {isFocused && (
-        <ul className="absolute text-[#333] text-2xl z-4 w-full">
+        <ul className="absolute text-[#333] text-2xl z-10 w-full">
           {suggestions.map((suggestion, index) => (
             <li
               key={index}
               onClick={() => handleSuggestionClick(suggestion)}
-              className="bg-[#ddd]"
+              className="bg-[#ddd] pl-1 md:pl-2"
             >
               {suggestion}
             </li>

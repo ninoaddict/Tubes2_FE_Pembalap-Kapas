@@ -21,10 +21,10 @@ export default function NavLinks() {
             className={`list-none text-xl font-semibold font-linux-libertine`}
           >
             <Link
-              href={"/"}
+              href={link.href}
               className={clsx(
                 "lg:duration-300 lg:ease-in-out text-gray-400 hover:text-[#F9F9F9] active:text-[#F9F9F9]",
-                { "text-[#F9F9F9]": pathName === link.href }
+                { "text-white": pathName === link.href }
               )}
             >
               {link.name}

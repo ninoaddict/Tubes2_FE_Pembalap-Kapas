@@ -1,7 +1,7 @@
 "use server";
 
 import { error } from "console";
-import { basename } from "path";
+// import { basename } from "path";
 
 export async function fetchWikipedia(term: string) {
   try {
