@@ -8,7 +8,7 @@ export default function Result({ visitedNum, paths, time }: ResultData) {
       <div className="text-center text-white text-3xl">
         Found <b>{paths.length} paths</b> in <b>{visitedNum} articles</b> with{" "}
         <b>{paths[0].length - 1} degrees</b> of separation in{" "}
-        <b>{time} miliseconds!</b>
+        <b>{time} seconds!</b>
       </div>
 
       {/* Graph */}

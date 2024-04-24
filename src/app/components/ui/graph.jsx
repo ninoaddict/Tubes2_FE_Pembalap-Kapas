@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { forEach, some } from "lodash";
 import * as d3 from "d3";
+import { formatTitle } from "@/app/lib/util";
 
 const ResultGraph = ({ paths }) => {
   const svgRef = useRef();
@@ -11,28 +12,28 @@ const ResultGraph = ({ paths }) => {
   }
 
   useEffect(() => {
-    const color = d3.scaleOrdinal(d3.schemeCategory10);
+    const color = d3.scaleOrdinal(d3.schemeDark2);
     const nodes = [];
     const links = [];
     const width = getWidth();
 
     const pathsLength = paths[0].length;
-    const startingPage = paths[0][0];
-    const targetPageTitle = paths[0][pathsLength - 1];
+    const startingPage = formatTitle(paths[0][0]);
+    const targetPageTitle = formatTitle(paths[0][pathsLength - 1]);
 
     paths.forEach((path) =>
       path.forEach((node, i) => {
-        if (!some(nodes, ["id", node])) {
+        if (!some(nodes, ["id", formatTitle(node)])) {
           nodes.push({
-            id: node,
+            id: formatTitle(node),
             degree: i,
           });
         }
 
         if (i !== 0) {
           links.push({
-            source: path[i - 1],
-            target: node,
+            source: formatTitle(path[i - 1]),
+            target: formatTitle(node),
           });
         }
       })
@@ -96,7 +97,6 @@ const ResultGraph = ({ paths }) => {
       .append("line")
       .attr("class", "link")
       .attr("marker-end", (d) => {
-        // Use a different arrow marker for links to the target page since it has a larger radius.
         if (d.target.id === targetPageTitle) {
           return "url(#arrow-end)";
         } else {
@@ -119,7 +119,9 @@ const ResultGraph = ({ paths }) => {
           return 10;
         }
       })
-      .style("fill", (d) => color(d.degree.toString()));
+      .style("fill", (d) => color(d.degree.toString()))
+      .style("stroke", "#ccc")
+      .style("stroke-width", 1);
 
     const labels = svg
       .selectAll(".label")
@@ -158,8 +160,6 @@ const ResultGraph = ({ paths }) => {
         .attr("y", (d) => d.y);
     });
 
-    // simulation.force("link").strength(0.2)
-
     function dragstarted(event, d) {
       if (!event.active) simulation.alphaTarget(0.3).restart();
       d.fx = d.x;
@@ -181,7 +181,7 @@ const ResultGraph = ({ paths }) => {
       svg.attr("transform", event.transform);
     }
 
-    return () => simulation.stop(); // Cleanup simulation on unmount
+    return () => simulation.stop();
   }, [paths]);
 
   return (

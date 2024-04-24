@@ -19,18 +19,62 @@ export async function fetchWikipedia(term: string) {
   }
 }
 
-export async function findPath(base: string, goal: string) {
+export async function findPath(
+  base: string,
+  goal: string,
+  isIds: boolean,
+  isMulti: boolean
+) {
   const request = {
-    base,
-    goal,
+    origin: base,
+    target: goal,
   };
-  const response = await fetch("http://localhost:8080/bfs/multiplesolution", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(request),
-  });
+  // const response = await fetch("http://localhost:8080/bfs/multiplesolution", {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify(request),
+  // });
+  let response;
+
+  if (isIds) {
+    if (isMulti) {
+      response = await fetch("http://localhost:8080/ids?solution=multi", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(request),
+      });
+    } else {
+      response = await fetch("http://localhost:8080/ids?solution=single", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(request),
+      });
+    }
+  } else {
+    if (isMulti) {
+      response = await fetch("http://localhost:8080/bfs?solution=multi", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(request),
+      });
+    } else {
+      response = await fetch("http://localhost:8080/bfs?solution=single", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(request),
+      });
+    }
+  }
 
   if (!response.ok) {
     throw error;
