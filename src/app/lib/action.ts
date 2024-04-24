@@ -1,7 +1,8 @@
 "use server";
 
 import { error } from "console";
-// import { basename } from "path";
+
+const dns = "backend"; // change to localhost if not using docker
 
 export async function fetchWikipedia(term: string) {
   try {
@@ -29,18 +30,11 @@ export async function findPath(
     origin: base,
     target: goal,
   };
-  // const response = await fetch("http://localhost:8080/bfs/multiplesolution", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(request),
-  // });
   let response;
 
   if (isIds) {
     if (isMulti) {
-      response = await fetch("http://localhost:8080/ids?solution=multi", {
+      response = await fetch(`http://${dns}:8080/ids?solution=multi`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +42,7 @@ export async function findPath(
         body: JSON.stringify(request),
       });
     } else {
-      response = await fetch("http://localhost:8080/ids?solution=single", {
+      response = await fetch(`http://${dns}:8080/ids?solution=single`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,7 +52,7 @@ export async function findPath(
     }
   } else {
     if (isMulti) {
-      response = await fetch("http://localhost:8080/bfs?solution=multi", {
+      response = await fetch(`http://${dns}:8080/bfs?solution=multi`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -66,7 +60,7 @@ export async function findPath(
         body: JSON.stringify(request),
       });
     } else {
-      response = await fetch("http://localhost:8080/bfs?solution=single", {
+      response = await fetch(`http://${dns}:8080/bfs?solution=single`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
