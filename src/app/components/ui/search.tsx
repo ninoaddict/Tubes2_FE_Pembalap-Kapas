@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import Result from "./result";
 import error from "next/error";
 
-const dns = "backend"; // change to "localhost" if you are not using docker and "backend" if you are using docker
+const dns = process.env.NEXT_PUBLIC_HOST;
 
 export default function Search() {
   const [base, setBase] = useState<string>("Apple");
@@ -30,6 +30,7 @@ export default function Search() {
     event.preventDefault();
     setResultData(null);
     setLoading(true);
+
     // get base url
     var urlBase;
     try {
