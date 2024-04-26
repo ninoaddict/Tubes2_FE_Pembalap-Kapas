@@ -2,8 +2,6 @@
 
 import { error } from "console";
 
-const dns = "backend"; // change to localhost if not using docker
-
 export async function fetchWikipedia(term: string) {
   try {
     const response = await fetch(
@@ -18,64 +16,6 @@ export async function fetchWikipedia(term: string) {
     // handle error
     return [];
   }
-}
-
-export async function findPath(
-  base: string,
-  goal: string,
-  isIds: boolean,
-  isMulti: boolean
-) {
-  const request = {
-    origin: base,
-    target: goal,
-  };
-  let response;
-
-  if (isIds) {
-    if (isMulti) {
-      response = await fetch(`http://${dns}:8080/ids?solution=multi`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(request),
-      });
-    } else {
-      response = await fetch(`http://${dns}:8080/ids?solution=single`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(request),
-      });
-    }
-  } else {
-    if (isMulti) {
-      response = await fetch(`http://${dns}:8080/bfs?solution=multi`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(request),
-      });
-    } else {
-      response = await fetch(`http://${dns}:8080/bfs?solution=single`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(request),
-      });
-    }
-  }
-
-  if (!response.ok) {
-    throw error;
-  }
-
-  const data = await response.json();
-  return data;
 }
 
 export async function getWikiUrl(title: string) {

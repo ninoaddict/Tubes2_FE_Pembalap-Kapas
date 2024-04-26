@@ -26,6 +26,7 @@ const ResultGraph = ({ paths }) => {
         if (!some(nodes, ["id", formatTitle(node)])) {
           nodes.push({
             id: formatTitle(node),
+            url: node,
             degree: i,
           });
         }
@@ -122,6 +123,10 @@ const ResultGraph = ({ paths }) => {
       .style("fill", (d) => color(d.degree.toString()))
       .style("stroke", "#ccc")
       .style("stroke-width", 1);
+
+    node.on("click", (d) => {
+      window.open(d.srcElement.__data__.url, "_blank");
+    });
 
     const labels = svg
       .selectAll(".label")

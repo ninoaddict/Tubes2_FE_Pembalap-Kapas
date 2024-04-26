@@ -1,3 +1,4 @@
 export function formatTitle(s: string) {
-  return s.slice(30).replaceAll("_", " ");
+  let decodeUrl = decodeURIComponent(s);
+  return decodeUrl.slice(30).replaceAll("_", " ");
 }
