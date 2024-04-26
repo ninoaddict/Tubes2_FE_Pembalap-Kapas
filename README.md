@@ -98,8 +98,16 @@ untuk melakukan fetch terhadap API endpoints tersebut memiliki format sebagai be
 <h2 id="usage">📘 Usage</h2>
 
 1. Masukkan judul dari halaman artikel wikipedia awal dan tujuan
+   
+   ![input titles](https://github.com/ninoaddict/Tubes2_FE_Pembalap-Kapas/blob/main/img/pic1.png)
+   
 2. Pilih algoritma dan banyak solusi yang diinginkan
+   
+   ![input algoritm and solution number](https://github.com/ninoaddict/Tubes2_FE_Pembalap-Kapas/blob/main/img/pic2.png)
+   
 3. Klik tombol search untuk melihat hasil
+   
+   ![click search](https://github.com/ninoaddict/Tubes2_FE_Pembalap-Kapas/blob/main/img/pic3.png)
 
 <h2 id="author">🤵 Contributors</h2>
 <table>
