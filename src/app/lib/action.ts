@@ -19,7 +19,7 @@ export async function fetchWikipedia(term: string) {
 }
 
 export async function getWikiUrl(title: string) {
-  const apiUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&titles=${title}&prop=info&inprop=url`;
+  const apiUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&titles=${title}&redirects=1&prop=info&inprop=url`;
   const response = await fetch(apiUrl);
   const data = await response.json();
   const pages = data.query.pages;
@@ -29,6 +29,6 @@ export async function getWikiUrl(title: string) {
     throw error;
   }
 
-  const url = pages[pageId].fullurl;
+  const url = pages[pageId].canonicalurl;
   return url;
 }
