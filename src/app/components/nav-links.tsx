@@ -7,6 +7,10 @@ import clsx from "clsx";
 const links = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about-us" },
+  {
+    name: "Github",
+    href: "https://github.com/ninoaddict/Tubes2_FE_Pembalap-Kapas",
+  },
 ];
 
 export default function NavLinks() {
