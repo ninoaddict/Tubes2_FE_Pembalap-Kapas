@@ -24,6 +24,7 @@ export default function Search() {
     setGoal(currBase);
   }
 
+  const dns = "localhost";
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setResultData(null);
@@ -82,7 +83,55 @@ export default function Search() {
 
     // find path
     try {
-      const data = await findPath(urlBase, urlGoal, isIds, isMulti);
+      const request = {
+        origin: urlBase,
+        target: urlGoal,
+      };
+      let response;
+
+      if (isIds) {
+        if (isMulti) {
+          response = await fetch(`http://${dns}:8080/ids?solution=multi`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(request),
+          });
+        } else {
+          response = await fetch(`http://${dns}:8080/ids?solution=single`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(request),
+          });
+        }
+      } else {
+        if (isMulti) {
+          response = await fetch(`http://${dns}:8080/bfs?solution=multi`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(request),
+          });
+        } else {
+          response = await fetch(`http://${dns}:8080/bfs?solution=single`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(request),
+          });
+        }
+      }
+
+      if (!response.ok) {
+        throw error;
+      }
+
+      const data = await response.json();
       setResultData(data);
     } catch (error) {
       let timerInterval;
