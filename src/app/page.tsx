@@ -3,7 +3,7 @@ import Search from "./components/ui/search";
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center min-h-[90vh]">
+    <main className="flex flex-col items-center min-h-[90vh] px-4">
       {/* Background */}
       <div className="absolute top-0 left-0">
         <ParticleContainer />

@@ -69,7 +69,7 @@ export default function TitleInput({
         className="text-[#333] py-3 px-5 box-border text-xl lg:text-3xl bg-[#ddd] text-center border-[3px] border-black"
       />
       {isFocused && (
-        <ul className="absolute text-[#333] text-2xl z-10 w-full">
+        <ul className="absolute text-[#333] text-lg md:text-xl lg:text-2xl z-10 w-full">
           {suggestions.map((suggestion, index) => (
             <li
               key={index}

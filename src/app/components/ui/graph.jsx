@@ -21,8 +21,12 @@ const ResultGraph = ({ paths }) => {
     const startingPage = formatTitle(paths[0][0]);
     const targetPageTitle = formatTitle(paths[0][pathsLength - 1]);
 
-    paths.forEach((path) =>
-      path.forEach((node, i) => {
+    for (let len = 0; len < paths.length; len++) {
+      if (len > 20) {
+        break;
+      }
+      
+      paths[len].forEach((node, i) => {
         if (!some(nodes, ["id", formatTitle(node)])) {
           nodes.push({
             id: formatTitle(node),
@@ -33,12 +37,12 @@ const ResultGraph = ({ paths }) => {
 
         if (i !== 0) {
           links.push({
-            source: formatTitle(path[i - 1]),
+            source: formatTitle(paths[len][i - 1]),
             target: formatTitle(node),
           });
         }
-      })
-    );
+      });
+    }
 
     let svg = d3.select(svgRef.current);
 
@@ -89,7 +93,7 @@ const ResultGraph = ({ paths }) => {
         d3.forceLink(links).id((d) => d.id)
       )
       .force("charge", d3.forceManyBody().strength(-1000))
-      .force("center", d3.forceCenter(width / 2, 600 / 2));
+      .force("center", d3.forceCenter(width / 2, 150));
 
     const link = svg
       .selectAll(".link")
