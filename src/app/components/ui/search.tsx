@@ -3,12 +3,10 @@
 import { useState } from "react";
 import TitleInput from "./title-input";
 import { ResultData } from "@/app/lib/interface";
-import { getWikiUrl } from "@/app/lib/action";
+import { getWikiUrl, findPath } from "@/app/lib/action";
 import Swal from "sweetalert2";
 import Result from "./result";
 import error from "next/error";
-
-const dns = process.env.NEXT_PUBLIC_HOST;
 
 export default function Search() {
   const [base, setBase] = useState<string>("Apple");
@@ -84,56 +82,7 @@ export default function Search() {
 
     // find path
     try {
-      // const data = await findPath(urlBase, urlGoal, isIds, isMulti);
-      const request = {
-        origin: urlBase,
-        target: urlGoal,
-      };
-      let response;
-
-      if (isIds) {
-        if (isMulti) {
-          response = await fetch(`http://${dns}:8080/ids?solution=multi`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(request),
-          });
-        } else {
-          response = await fetch(`http://${dns}:8080/ids?solution=single`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(request),
-          });
-        }
-      } else {
-        if (isMulti) {
-          response = await fetch(`http://${dns}:8080/bfs?solution=multi`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(request),
-          });
-        } else {
-          response = await fetch(`http://${dns}:8080/bfs?solution=single`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(request),
-          });
-        }
-      }
-
-      if (!response.ok) {
-        throw error;
-      }
-
-      const data = await response.json();
+      const data = await findPath(urlBase, urlGoal, isIds, isMulti);
       setResultData(data);
     } catch (error) {
       let timerInterval;
