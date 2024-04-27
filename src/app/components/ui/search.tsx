@@ -3,7 +3,7 @@
 import { useState } from "react";
 import TitleInput from "./title-input";
 import { ResultData } from "@/app/lib/interface";
-import { getWikiUrl, findPath } from "@/app/lib/action";
+import { getWikiUrl } from "@/app/lib/action";
 import Swal from "sweetalert2";
 import Result from "./result";
 import error from "next/error";
