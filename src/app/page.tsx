@@ -1,14 +1,8 @@
-import { ParticleContainer } from "./components/particle-containers";
-import Search from "./components/ui/search";
+import Search from "./components/search";
 
 export default function Home() {
   return (
     <main className="flex flex-col items-center min-h-[90vh] px-4">
-      {/* Background */}
-      <div className="absolute top-0 left-0">
-        <ParticleContainer />
-      </div>
-
       {/* Title */}
       <div className="md:-mt-2">
         <h1 className="relative -z-10 font-bold m-0 p-0 text-4xl md:text-5xl lg:text-7xl text-white drop-shadow-lg">

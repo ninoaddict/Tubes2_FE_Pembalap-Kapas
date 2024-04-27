@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
-// import { rubikglitch } from "./font";
-// import { orbitron } from "./font";
 import NavLinks from "./nav-links";
 
 export default function TopNav() {
