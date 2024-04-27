@@ -39,10 +39,6 @@ git clone https://github.com/Farhannr28/Tubes2_BE_Pembalap-Kapas
 ### Dengan Docker
 Untuk menjalankan projek ini dengan docker, pastikan docker desktop sudah terunduh pada perangkat Anda. 
 Jika belum, Anda dapat mengunduhnya sesuai dengan perangkat Anda pada [link](https://www.docker.com/products/docker-desktop) berikut.
-- Buat file .env.local pada directory Tubes2_FE_Pembalap-Kapas/src/ dan tambahkan kode berikut pada file tersebut
-```
-NEXT_PUBLIC_HOST=backend
-```
 - Lakukan build terhadap program _frontend_
 ```
 cd Tubes2_FE_Pembalap-Kapas/src
@@ -67,10 +63,6 @@ docker-compose down
 ```
 ### Tanpa Docker
 Untuk menjalankan projek ini tanpa docker (secara lokal), Anda harus sudah meng-_install_ Node.js, npm (atau yarn), dan bahasa Go pada perangkat Anda.
-- Buat file .env.local pada directory Tubes2_FE_Pembalap-Kapas/src/ dan tambahkan kode berikut pada file tersebut
-```
-NEXT_PUBLIC_HOST=localhost
-```
 - Lakukan install terhadap semua _dependencies_ pada program frontend Anda
 ```
 cd Tubes2_FE_Pembalap-Kapas/src
